@@ -5,7 +5,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import Registerpage from "./components/Registerpage";
+
 
 import {Provider} from "react-redux"
 
@@ -14,6 +14,7 @@ import './index.css'
 import Marketplace from './components/Marketplace.jsx';
 import Profile from './components/Profile.jsx';
 import Cart from './components/Cart.jsx';
+import Registerform from './components/registerform.jsx';
 
 
 
@@ -25,7 +26,7 @@ const route=createBrowserRouter([
     
   {
     path:"/getstarted",
-    element:<Registerpage/>
+    element:<Registerform/>
   }
   ,
   {

@@ -4,20 +4,17 @@ import { createSlice } from "@reduxjs/toolkit";
 const userSlice=createSlice({
     name:"user",
     initialState:{
-        name:"",
-        username:"",
+        userinfo:[],
       
         cart:[]
       
     },
     reducers:{
-        addname:(state,action)=>{
-             state.name=action.payload;
-
-        },
-        addusername:(state,action)=>{
-            state.username=action.payload
-        },
+        addUser:(state,action)=>{
+               state.userinfo.push(action.payload)
+               
+               
+                },
         addtocart:(state,action)=>{
           state.cart.push(action.payload)
            
@@ -37,5 +34,5 @@ const userSlice=createSlice({
 
 })
 
-export const{addname,addusername,addtocart,removefromcart,clearCart} =userSlice.actions;
+export const{addUser,addtocart,removefromcart,clearCart} =userSlice.actions;
 export default userSlice.reducer;
