@@ -7,6 +7,8 @@ import {
 } from "react-router-dom";
 
 
+
+
 import {Provider} from "react-redux"
 
 import store from '../store/store.js';
@@ -18,7 +20,14 @@ import Registerform from './components/registerform.jsx';
 
 
 
+
 const route=createBrowserRouter([
+
+  
+
+
+
+
   {
     path:"/",
     element:<Home/>,

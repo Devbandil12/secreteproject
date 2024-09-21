@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
+import LocomotiveScroll from 'locomotive-scroll';
+
+const locomotiveScroll = new LocomotiveScroll();
+
 
 import { Link } from 'react-router-dom';
 
-const Home = () => {
+const Home = ({bg}) => {
   
 
   return (
@@ -14,9 +18,9 @@ const Home = () => {
       </header>
 
 
-      <main className='bg-[url("bg.jpg")] bg-cover bg-center bg-no-repeat flex items-center justify-center'>
+      <main className={`bg-[url("bg.jpg")] bg-cover bg-center bg-no-repeat flex items-center justify-center`}>
       <Link to={"/getstarted"} >  <button  className='p-5 mx-5 bg-green-500'>
-          Get Started
+          Get Started 
         </button></Link>
       </main>
 
