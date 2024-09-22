@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const ShopkeeperSlice = createSlice({
   name:"shopkeeper",
   initialState:{
-    name:"",
+  
     shopName:"",
     productList:[],
 

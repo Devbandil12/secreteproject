@@ -1,6 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 
+
+// Connect to the socket.io server
+
+
+
+
+
 const userSlice=createSlice({
     name:"user",
     initialState:{
@@ -12,7 +19,7 @@ const userSlice=createSlice({
     reducers:{
         addUser:(state,action)=>{
                state.userinfo.push(action.payload)
-               
+           
                
                 },
         addtocart:(state,action)=>{
@@ -28,8 +35,10 @@ const userSlice=createSlice({
         },
         clearCart:(state)=>{
             state.cart=[]
-        }
-    }
+        },
+
+    },
+   
 
 
 })

@@ -1,0 +1,4 @@
+app.use(express.static(path.join(__dirname,'../Bookshop/dist')))
+app.get("*",(req,res)=>{
+    res.sendFile(path.join(__dirname,"../Bookshop/dist","index.html"))
+})

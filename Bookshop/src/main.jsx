@@ -8,7 +8,6 @@ import {
 
 
 
-
 import {Provider} from "react-redux"
 
 import store from '../store/store.js';
@@ -16,7 +15,8 @@ import './index.css'
 import Marketplace from './components/Marketplace.jsx';
 import Profile from './components/Profile.jsx';
 import Cart from './components/Cart.jsx';
-import Registerform from './components/registerform.jsx';
+import Registerform from './components/Registerform.jsx';
+
 
 
 

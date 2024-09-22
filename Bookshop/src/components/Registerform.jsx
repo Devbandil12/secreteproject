@@ -3,9 +3,12 @@ import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import { addUser } from "../../slice/userSlice";
 import { Link } from "react-router-dom";
+import axios from "axios"
 
 const Registerform = () => {
   const userinfo = useSelector((s) => s.user);
+
+  
 
   const dispatch = useDispatch();
 
@@ -21,13 +24,31 @@ const Registerform = () => {
         <h2 className="text-3xl font-bold text-center mb-6"></h2>
         <form
           onSubmit={handleSubmit((data) => {
+            
+            
             let obj = {
               name: data.fullname,
               email: data.email,
               password: data.password,
             };
+ dispatch(addUser(obj));
+ const postData = async () => {
+  try {
+    const response = await axios.post("http://localhost:5000/api/getstarted", obj);
 
-            dispatch(addUser(obj));
+    console.log('Response:', response.data);  window.location.href = '/Marketplace';
+  } catch (error) {
+    console.error('Error:', error.response ? error.response.data : error.message);
+  }
+};
+
+postData();
+
+ 
+          
+ 
+
+        
           })}
           className="space-y-6"
         >
@@ -67,11 +88,10 @@ const Registerform = () => {
             />
           </div>
 
-        <Link to={"/Marketplace"}>
         <button className="w-full bg-blue-500 text-white font-semibold mt- py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors duration-300">
             sign up
           </button>
-        </Link>
+   
         </form>
 
         <p className="text-center text-gray-600 mt-6">
