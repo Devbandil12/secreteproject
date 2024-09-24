@@ -16,6 +16,8 @@ import Marketplace from './components/Marketplace.jsx';
 import Profile from './components/Profile.jsx';
 import Cart from './components/Cart.jsx';
 import Registerform from './components/Registerform.jsx';
+import Dashboard from './components/Dashboard.jsx';
+import Login from './components/Login.jsx';
 
 
 
@@ -50,7 +52,15 @@ const route=createBrowserRouter([
     path:"/cart",
     element:<Cart/>
   }
-  
+  ,
+  {
+    path:"/admin/dashboard",
+    element:<Dashboard/>
+  },
+  {
+    path:"/login",
+    element:<Login/>
+  }
 ])
 
 

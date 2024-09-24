@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import { addUser } from "../../slice/userSlice";
-import { Link } from "react-router-dom";
+
 import axios from "axios"
+import { Link } from "react-router-dom";
 
 const Registerform = () => {
-  const userinfo = useSelector((s) => s.user);
+
 
   
 
@@ -91,11 +92,13 @@ postData();
         <button className="w-full bg-blue-500 text-white font-semibold mt- py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors duration-300">
             sign up
           </button>
-   
+  
         </form>
-
-        <p className="text-center text-gray-600 mt-6">
-          <span className="text-blue-500 font-semibold cursor-pointer hover:underline ml-2"></span>
+             
+        <p className="text-center text-gray-600 mt-6">already have an account
+          <span className="text-blue-500 font-semibold cursor-pointer hover:underline ml-2">
+<Link to={"/login"}><button > Login </button></Link>
+          </span>
         </p>
       </div>
     </div>

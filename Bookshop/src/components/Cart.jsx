@@ -17,10 +17,23 @@ const Cart = () => {
         <>
         {cartlist.cart.map((item) => 
         
-    <div key={item.id}>
+        <div className=" bg-pink-200">
+      
     
-    <Card  name={item.name} price={item.price} image={item} incart={false}/>
-    </div>
+  
+        <div className="grid mt-3 grid-cols-1 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+         
+              <Card
+                name={item.productName}
+                price={item.price}
+                image={item.image}
+                incart={true}
+              />
+              
+            </div>
+       
+        </div>
+     
     
     
     

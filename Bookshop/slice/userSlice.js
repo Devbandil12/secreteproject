@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 
 
@@ -12,6 +12,8 @@ const userSlice=createSlice({
     name:"user",
     initialState:{
         userinfo:[],
+        isShopkeeper:false,
+        shopID:null,
       
         cart:[]
       
@@ -36,6 +38,12 @@ const userSlice=createSlice({
         clearCart:(state)=>{
             state.cart=[]
         },
+       createShop:(state)=>{
+        state.isShopkeeper=true
+        if(state.isShopkeeper){
+          state.shopID=nanoid()
+        }
+       }
 
     },
    

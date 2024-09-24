@@ -23,6 +23,7 @@ const Card = ({ name, price, image, incart }) => {
                     id: nanoid(),
                     name: name,
                     price: price,
+                    image:image
                   };
 
                   dispatch(addtocart(obj));

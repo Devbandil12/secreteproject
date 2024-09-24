@@ -3,7 +3,7 @@ import SearchBar from './SearchBar'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
-const Header = ({title,Logopath,profile}) => {
+const Header = ({menu,title,Logopath,profile}) => {
 
 
 const info=useSelector(s=>s.user)
@@ -12,15 +12,19 @@ const info=useSelector(s=>s.user)
   return (
     <>
     <header className='bg-white opacity-0.5 py-3 items-center flex justify-between px-3'>
-       
-        <h1 className='text-[3vw] font-bold text-center '>{title}</h1>
+     <button>  <img className='size-8' src={menu} alt="" /></button>
+        <h1 className='text-[2rem] font-bold text-center '>{title}</h1>
 
-        <SearchBar />
+       
 
        <div className='flex gap-1  justify-around'>
+       <div className='flex'>
        <Link to={"/cart"}>
-         <h5 className='text-green-900 font-bold mt-2 '>Cart:{info.cart.length}</h5>
+         <img className='size-10' src={Logopath} alt="" />
        </Link>
+      
+       <h1 className=' font-bold text-red-600 rounded-full text-center'>{info.cart.length}</h1>
+       </div>
        <Link to={"/Profile"}>
          <img className='size-10' src={profile} alt="" />
        </Link>

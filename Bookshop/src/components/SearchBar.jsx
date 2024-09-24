@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import searchicon from "../assets/search-line.svg"
 const SearchBar = ({}) => {
   const [searchInput, setSearchInput] = useState("");
   
@@ -13,17 +14,19 @@ const SearchBar = ({}) => {
     <>
 
     
-      <div className="searchBox">
-        <input
+      <div className="searchBox flex ">
+       <div>
+       <input
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
-          className="searchInput rounded-md bg-pink-950 p-2 text-white"
+          className="searchInput rounded-lg w-[15rem] bg-pink-950 p-2 text-white"
           type="text"
           name=""
           placeholder="Search"
         />
-        <button onClick={() => {}} className="searchButton" href="#">
-          <i className="material-icons text-black font-bold mx-1">search</i>
+       </div>
+        <button onClick={() => {}} className="searchButton ml-[13rem] mt-2 absolute" href="#">
+        <img className="size-[1.5rem] fill-white" src={searchicon} alt="" />
         </button>
       </div>
     </>
