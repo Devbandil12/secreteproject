@@ -12,8 +12,7 @@ const userSlice=createSlice({
     name:"user",
     initialState:{
         userinfo:[],
-        isShopkeeper:false,
-        shopID:null,
+       
       
         cart:[]
       

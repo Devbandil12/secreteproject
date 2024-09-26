@@ -1,34 +1,28 @@
-import React, { useState } from "react";
-import Dashboard from "./Dashboard";
-import { Link } from "react-router-dom";
+// ProfileSection.js
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  setName,
+  setProfileImage,
+  setBackgroundImage,
+  toggleCreateShop,
+  setShopName,
+} from '../../slice/ProfileSlice';
 
 const ProfileSection = () => {
-  const [name, setName] = useState("Your Name");
-  const [pendingOrders, setPendingOrders] = useState(3);
-  const [successfulOrders, setSuccessfulOrders] = useState(12);
-  const [isEditing, setIsEditing] = useState(false);
-  const [newName, setNewName] = useState(name);
-  const [profileImage, setProfileImage] = useState(
-    "your-profile-image-url.jpg"
-  );
-  const [backgroundImage, setBackgroundImage] = useState(
-    "your-background-image-url.jpg"
-  );
-  const [isCreatingShop, setIsCreatingShop] = useState(false);
-  const [shopName, setShopName] = useState("");
+  const dispatch = useDispatch();
+  const {
+    name,
+    pendingOrders,
+    successfulOrders,
+    profileImage,
+    backgroundImage,
+    isCreatingShop,
+    shopName,
+  } = useSelector((state) => state.profile);
 
-  const handleEditName = () => {
-    setIsEditing(true);
-  };
-
-  const handleSaveName = () => {
-    setName(newName);
-    setIsEditing(false);
-  };
-
-  const handleCancel = () => {
-    setNewName(name);
-    setIsEditing(false);
+  const handleEditName = (newName) => {
+    dispatch(setName(newName));
   };
 
   const handleProfileImageChange = (e) => {
@@ -36,7 +30,7 @@ const ProfileSection = () => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setProfileImage(reader.result);
+        dispatch(setProfileImage(reader.result));
       };
       reader.readAsDataURL(file);
     }
@@ -47,15 +41,15 @@ const ProfileSection = () => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setBackgroundImage(reader.result);
+        dispatch(setBackgroundImage(reader.result));
       };
       reader.readAsDataURL(file);
     }
   };
 
   const handleCreateShop = () => {
+    console.log('Shop created:', shopName);
     // Logic to create a shop can be added here
-    console.log("Shop created:", shopName);
   };
 
   return (
@@ -86,7 +80,7 @@ const ProfileSection = () => {
             />
           </label>
           <button
-            onClick={handleEditName}
+            onClick={() => handleEditName(prompt("Enter new name", name))}
             className="bg-white text-blue-500 px-3 py-1 rounded hover:bg-blue-100 transition duration-300 text-sm"
           >
             Edit Name
@@ -107,64 +101,35 @@ const ProfileSection = () => {
           </div>
         </div>
 
-        {isEditing ? (
-          <div className="mt-4">
-            <input
-              type="text"
-              value={newName}
-              onChange={(e) => setNewName(e.target.value)}
-              className="border rounded px-2 py-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter new name"
-            />
-            <div className="flex justify-between mt-2">
-              <button
-                onClick={handleSaveName}
-                className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 transition duration-300 text-sm"
-              >
-                Save
-              </button>
-              <button
-                onClick={handleCancel}
-                className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition duration-300 text-sm"
-              >
-                Cancel
-              </button>
+        <div className="mt-4">
+          <h3 className="text-lg font-medium text-white">Orders</h3>
+          <div className="flex justify-between mt-2">
+            <div className="text-center">
+              <p className="text-gray-200">Pending</p>
+              <p className="font-semibold text-white">{pendingOrders}</p>
+            </div>
+            <div className="text-center">
+              <p className="text-gray-200">Successful</p>
+              <p className="font-semibold text-white">{successfulOrders}</p>
             </div>
           </div>
-        ) : (
-          <div className="mt-4">
-            <h3 className="text-lg font-medium text-white">Orders</h3>
-            <div className="flex justify-between mt-2">
-              <div className="text-center">
-                <p className="text-gray-200">Pending</p>
-                <p className="font-semibold text-white">{pendingOrders}</p>
-              </div>
-              <div className="text-center">
-                <p className="text-gray-200">Successful</p>
-                <p className="font-semibold text-white">{successfulOrders}</p>
-              </div>
-            </div>
-          </div>
-        )}
+        </div>
 
         {/* Create New Shop Section */}
         <div className="mt-6">
           {!isCreatingShop ? (
-            
-          <button
-            onClick={() => setIsCreatingShop(true)}
-            className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300 text-sm"
-          >
-            Create New Shop
-          </button>
+            <button
+              onClick={() => dispatch(toggleCreateShop())}
+              className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300 text-sm"
+            >
+              Create New Shop
+            </button>
           ) : (
             <div className="mt-4">
               <input
                 type="text"
                 value={shopName}
-                onChange={(e) => {
-                  setShopName(e.target.value);
-                }}
+                onChange={(e) => dispatch(setShopName(e.target.value))}
                 className="border rounded px-2 py-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="What is your shop name?"
               />
@@ -176,7 +141,7 @@ const ProfileSection = () => {
                   Create Shop
                 </button>
                 <button
-                  onClick={() => setIsCreatingShop(false)}
+                  onClick={() => dispatch(toggleCreateShop())}
                   className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition duration-300 text-sm"
                 >
                   Cancel

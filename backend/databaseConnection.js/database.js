@@ -6,11 +6,10 @@ const database=mongoose.connect('mongodb+srv://devbandil120:xiQ7yc4DI400IHh7@sho
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => console.log('MongoDB connected'))
-  .catch((err) => console.log('Error connecting to MongoDB:', err));
+ 
 
 
 
 
-module.exports
+module.exports =database
 

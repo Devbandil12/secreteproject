@@ -1,6 +1,9 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
+import { io } from 'socket.io-client';
+
+
 
 const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -18,7 +21,19 @@ const Login = () => {
       };
       
       postData();
+      if(postData.ok){
+       
+          const socket = io("http://localhost:5000");
+          socket.on('chat message', (msg) => {
+         console.log(msg);
+         
+              
+          });
+  
+          // Cleanup on component unmount
+          
       
+      }
     // Handle login logic here
   };
 

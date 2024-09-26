@@ -5,11 +5,10 @@ import { addUser } from "../../slice/userSlice";
 
 import axios from "axios"
 import { Link } from "react-router-dom";
+import { nanoid } from "@reduxjs/toolkit";
 
 const Registerform = () => {
 
-
-  
 
   const dispatch = useDispatch();
 
@@ -28,14 +27,18 @@ const Registerform = () => {
             
             
             let obj = {
+              id:nanoid().toString(),
               name: data.fullname,
               email: data.email,
               password: data.password,
+              isShopkeeper:false,
+              shopID:"",
+
             };
  dispatch(addUser(obj));
  const postData = async () => {
   try {
-    const response = await axios.post("http://localhost:5000/api/getstarted", obj);
+    const response = await axios.post("http://localhost:5000/api/getstarted", {obj});
 
     console.log('Response:', response.data);  window.location.href = '/Marketplace';
   } catch (error) {

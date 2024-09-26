@@ -18,6 +18,7 @@ import Cart from './components/Cart.jsx';
 import Registerform from './components/Registerform.jsx';
 import Dashboard from './components/Dashboard.jsx';
 import Login from './components/Login.jsx';
+import Shop from './components/Shop.jsx';
 
 
 
@@ -60,6 +61,10 @@ const route=createBrowserRouter([
   {
     path:"/login",
     element:<Login/>
+  },
+  {
+    path:"/shop",
+    element:<Shop/>
   }
 ])
 
