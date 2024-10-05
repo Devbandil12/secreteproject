@@ -1,25 +1,29 @@
 // Shop.js
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Header from "./Header"
+import { MdDashboard } from "react-icons/md";
+import { IoIosNotifications } from "react-icons/io";
 
 const items = [
-  {
-    id: 1,
-    productName: "Apple iPhone 14",
-    price: "$999",
-    image: "https://mockuptree.com/wp-content/uploads/edd/2024/09/Free-iPhone-16-Pro-Mockup-960x640.jpg"
-  },
-  {
-    id: 2,
-    productName: "Samsung Galaxy S23",
-    price: "$899",
-    image: "https://fscl01.fonpit.de/userfiles/7446224/image/samsung-galaxy-s23-series-cmd7/NextPit-samsung-galaxy-s23-ultra-hands-on-cmd7.jpg",
-  },
-  {
-    id: 3,
-    productName: "Google Pixel 7",
-    price: "$799",
-    image: "https://th.bing.com/th/id/OIP.C3RdJxqV2qYbJnKJlu-53wHaE7?rs=1&pid=ImgDetMain"
-  },
+    {
+        id: 1,
+        productName: "Apple iPhone 14",
+        price: "$999",
+        image: "https://mockuptree.com/wp-content/uploads/edd/2024/09/Free-iPhone-16-Pro-Mockup-960x640.jpg"
+      },
+      {
+        id: 2,
+        productName: "Samsung Galaxy S23",
+        price: "$899",
+        image: "https://fscl01.fonpit.de/userfiles/7446224/image/samsung-galaxy-s23-series-cmd7/NextPit-samsung-galaxy-s23-ultra-hands-on-cmd7.jpg",
+      },
+      {
+        id: 3,
+        productName: "Google Pixel 7",
+        price: "$799",
+        image: "https://th.bing.com/th/id/OIP.C3RdJxqV2qYbJnKJlu-53wHaE7?rs=1&pid=ImgDetMain"
+      },
   // Add more items as needed
 ];
 
@@ -30,7 +34,8 @@ const Shop = () => {
     const [productImage, setProductImage] = useState('');
     const [editingIndex, setEditingIndex] = useState(null);
     const shopName = "My Awesome Shop";
-
+const shopInfo=useSelector(s=>s.Shop);
+const dispatch =useDispatch()
     const addProduct = () => {
         if (productName && productPrice && productImage) {
             const newProduct = {
@@ -76,8 +81,17 @@ const Shop = () => {
     };
 
     return (
+        <>
+        <Header 
+        menu={menuicon}
+        title={shopName}
+        Cart={<MdDashboard/>}
+        Cartpath={"/dashboard"}
+        profile={<IoIosNotifications/>}
+        profilePath={"/notification"}
+     />
         <div className="max-w-3xl mx-auto p-5 bg-white rounded-lg shadow-lg">
-            <h1 className="text-2xl font-bold text-center text-gray-700 mb-5">{shopName}</h1>
+       
             <div className="flex mb-5">
                 <input
                     type="text"
@@ -85,25 +99,25 @@ const Shop = () => {
                     onChange={(e) => setProductName(e.target.value)}
                     placeholder="Enter product name"
                     className="flex-grow p-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
+                    />
                 <input
                     type="text"
                     value={productPrice}
                     onChange={(e) => setProductPrice(e.target.value)}
                     placeholder="Enter product price"
                     className="flex-grow p-2 border border-gray-300 mx-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
+                    />
                 <input
                     type="text"
                     value={productImage}
                     onChange={(e) => setProductImage(e.target.value)}
                     placeholder="Enter product image URL"
                     className="flex-grow p-2 border border-gray-300 rounded-r-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
+                    />
                 <button
                     onClick={editingIndex !== null ? updateProduct : addProduct}
                     className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition duration-200"
-                >
+                    >
                     {editingIndex !== null ? 'Update' : 'Add'}
                 </button>
             </div>
@@ -117,7 +131,7 @@ const Shop = () => {
                             <button
                                 onClick={() => editProduct(index)}
                                 className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 transition duration-200"
-                            >
+                                >
                                 Edit
                             </button>
                             <button
@@ -131,6 +145,7 @@ const Shop = () => {
                 ))}
             </div>
         </div>
+                                </>
     );
 };
 

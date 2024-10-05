@@ -5,21 +5,21 @@ const User = require("../backend/models/model.js");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const jwt =require("jsonwebtoken")
-const secretKey="1234"
+const product=require("../backend/models/products.js")
+
 const cookeiparser=require("cookie-parser")
 
 const database=require("../backend/databaseConnection.js/database.js")
 
 const app = express();
-app.use(cookeiparser())
+
 
 
 app.use(
   cors({
     origin: "http://localhost:5173",
   })
-);
-
+)
 
 
 // Serve static files (optional if you have a frontend)
@@ -47,7 +47,7 @@ app.post("/api/getstarted", async (req, res) => {
 });
 
 
-
+app.use(cookeiparser())
 
 app.post('/api/login', async (req, res) => {
 
@@ -121,17 +121,13 @@ const tp = http.createServer(app);
 const io = socketIo(tp);
  
 io.on('connection', (socket) => {
-  console.log('A user connected');
+  console.log('A user connected' + socket.id);
+socket.on("profiledata",async(namee,profileimage,bgimage)=>{
+  const Product=new product(namee,profileimage,bgimage)
+             await Product.save()
+  
+})
 
-  // Handle incoming messages
-  socket.on('chat message', (msg) => {
-      console.log('Message received: ' + msg);
-      io.emit('chat message', msg); // Emit to all clients
-  });
-
-  socket.on('disconnect', () => {
-      console.log('User disconnected');
-  });
 });
 
 
@@ -144,7 +140,7 @@ database.then(()=>{
   
   console.log("databse connecte....");
   const PORT = 5000;
-const server = tp.listen(PORT, () => {
+ tp.listen(PORT, () => {
   console.log("listenign..........");
 });
 

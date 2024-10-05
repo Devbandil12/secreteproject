@@ -19,6 +19,8 @@ import Registerform from './components/Registerform.jsx';
 import Dashboard from './components/Dashboard.jsx';
 import Login from './components/Login.jsx';
 import Shop from './components/Shop.jsx';
+import Notification from './components/Notification.jsx';
+import { io } from 'socket.io-client';
 
 
 
@@ -26,7 +28,8 @@ import Shop from './components/Shop.jsx';
 
 const route=createBrowserRouter([
 
-  
+
+
 
 
 
@@ -65,6 +68,10 @@ const route=createBrowserRouter([
   {
     path:"/shop",
     element:<Shop/>
+  },
+  {
+    path:"notification",
+    element:<Notification/>
   }
 ])
 

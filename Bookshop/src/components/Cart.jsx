@@ -27,7 +27,7 @@ const Cart = () => {
                 name={item.productName}
                 price={item.price}
                 image={item.image}
-                incart={true}
+                incart={false}
               />
               
             </div>

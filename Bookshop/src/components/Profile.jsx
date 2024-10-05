@@ -1,5 +1,6 @@
 // ProfileSection.js
-import React from 'react';
+import React, { useEffect } from 'react';
+import {Link} from "react-router-dom"
 import { useSelector, useDispatch } from 'react-redux';
 import {
   setName,
@@ -8,8 +9,10 @@ import {
   toggleCreateShop,
   setShopName,
 } from '../../slice/ProfileSlice';
+import { io } from 'socket.io-client';
 
 const ProfileSection = () => {
+  
   const dispatch = useDispatch();
   const {
     name,
@@ -46,14 +49,25 @@ const ProfileSection = () => {
       reader.readAsDataURL(file);
     }
   };
-
+  
   const handleCreateShop = () => {
+
     console.log('Shop created:', shopName);
+   
     // Logic to create a shop can be added here
   };
+  useEffect(()=>{
+      const socket=io();
+      socket.emit("profiledata",{namee: name,
+        
 
+        profileimage:profileImage,
+        bgimage:backgroundImage,
+       })
+  },[])
   return (
     <div className="max-w-md mx-auto bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg shadow-lg overflow-hidden animate-fade-in">
+      
       <div className="relative">
         <img
           src={backgroundImage}
@@ -118,12 +132,16 @@ const ProfileSection = () => {
         {/* Create New Shop Section */}
         <div className="mt-6">
           {!isCreatingShop ? (
+          <Link to={"/shop"}>
+
             <button
               onClick={() => dispatch(toggleCreateShop())}
               className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300 text-sm"
-            >
+              >
               Create New Shop
             </button>
+              </Link>
+        
           ) : (
             <div className="mt-4">
               <input

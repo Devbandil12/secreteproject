@@ -14,7 +14,8 @@ const userSlice=createSlice({
         userinfo:[],
        
       
-        cart:[]
+        cart:[],
+        Notification:[]
       
     },
     reducers:{
