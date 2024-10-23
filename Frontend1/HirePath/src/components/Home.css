@@ -1,0 +1,413 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #003366;
+    padding: 15px;
+    flex-wrap: wrap;
+  }
+  
+  .logo {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .tagline {
+    font-size: small;
+    color: azure;
+  }
+  
+  .nav-items {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .nav-items a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    transition: color 0.3s;
+  }
+  
+  .nav-items a:hover {
+    color: #ffcc00;
+  }
+  
+  .container-1 {
+    background-color: #b5c18e;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .img_student {
+    float: left;
+    width: 35%;
+    margin-right: 10px;
+  }
+  
+  .main {
+    color: #000;
+    text-shadow: 2px 2px 4px #0a0a0a;
+  }
+  .btn {
+    width: 20%;
+    padding: 10px;
+    background-color: #5edaf0;
+    color: #000;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 7px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.4);
+  }
+  .search-container {
+    display: flex;
+    flex-direction: row; /* Align items in a row */
+    justify-content: center; /* Center the search container */
+    gap: 10px; /* Space between search inputs and button */
+    background-color: #ffe3e3; /* Grey background */
+    padding: 20px;
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    animation: fadeIn 0.5s; /* Animation on load */
+    margin: 30px;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .search-bar {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    margin-bottom: 5px;
+  }
+  
+  input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200px;
+  }
+  
+  .find-job-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+  
+  .find-job-button:hover {
+    background-color: #0056b3;
+  }
+  
+  footer {
+    /* background: linear-gradient(135deg, #789DBC, #A4D1E1);  */
+    background-color: #003366;
+    color: #003366;
+    padding: 30px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .bottom-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .links {
+    margin: 15px 30px;
+    text-align: left;
+    transition: transform 0.3s;
+  }
+  
+  .links:hover {
+    transform: scale(1.05);
+  }
+  
+  .links span {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  a {
+    color: #003366;
+    text-decoration: none;
+    transition: color 0.3s, text-shadow 0.3s;
+  }
+  
+  a:hover {
+    color: #c9a948;
+    text-shadow: 0 0 5px #ffcc00;
+  }
+  
+  footer::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    right: 0;
+    height: 20px;
+    background: linear-gradient(135deg, transparent, #c9e9d2);
+    animation: wave 2s infinite;
+  }
+  
+  @keyframes wave {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .navbar {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .nav-items {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .search-container {
+      flex-direction: column; /* Stack items vertically on small screens */
+      align-items: center;
+    }
+  
+    .search-bar {
+      width: 100%; /* Full width for search bar */
+      max-width: 300px; /* Limit width */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .logo {
+      font-size: 20px;
+    }
+  
+    .nav-items a {
+      font-size: 14px;
+    }
+  }
+  
+  /* marque */
+  .marque {
+    width: 100%;
+    white-space: nowrap;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
+    background-color: #f8f8f8;
+    /* background-color: red; */
+  }
+  
+  .marque h1 {
+    animation: marque 8s linear infinite forwards 0s;
+    overflow: hidden;
+    font-size: 4vh; /* Base font size */
+    display: inline-block;
+    text-transform: uppercase;
+    font-weight: 900;
+    -webkit-text-stroke: 0.3vh black;
+    color: transparent;
+    font-family: monument;
+    margin-right: 1vh;
+    /* background-color: teal; */
+    /* width: fit-content; */
+  }
+  
+  /* Adjust font size and animation duration for responsiveness */
+  @media (max-width: 768px) {
+    .marque h1 {
+      font-size: 2vh; /* Decrease font size for smaller screens */
+      animation-duration: 10s; /* Slower animation for readability */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .marque h1 {
+      font-size: 2vh; /* Further decrease font size */
+      animation-duration: 12s; /* Slower animation */
+    }
+  }
+  
+  .marque h1:hover {
+    color: #b7f1b9;
+  }
+  
+  @keyframes marque {
+    from {
+      transform: translateX(0%);
+    }
+    to {
+      transform: translateX(calc(-100% - 4vh));
+    }
+  }
+  
+  /* falling image */
+  
+  .fall_img {
+    width: 100%;
+    height: auto; /* Changed to auto for responsive height */
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f8f8;
+  }
+  
+  .fall_img h1 {
+    width: 100%;
+    height: auto; /* Changed to auto for responsive height */
+    font-size: 7vh; /* Base font size */
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-family: monument;
+    margin: 1vh 0; /* Added margin for spacing */
+  }
+  
+  .elem {
+    height: auto; /* Changed to auto for responsive height */
+    width: 95%;
+    border-top: 2px solid black;
+    padding: 2vh 3%; /* Adjusted padding for better responsiveness */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f8f8;
+  }
+  
+  .elem:nth-child(1) {
+    border-bottom: 2px solid black;
+  }
+  
+  .elem .left {
+    height: auto; /* Changed to auto */
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .left h3 {
+    font-size: 2.5vh; /* Increased for better visibility */
+  }
+  
+  .left img {
+    width: 8%; /* Adjusted width for larger screens */
+    aspect-ratio: 1;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 50%;
+    opacity: 0;
+    left: 24%;
+    transition: all ease 1s;
+    position: absolute;
+  }
+  
+  .elem:hover img {
+    opacity: 1;
+    left: 30%;
+  }
+  
+  .right {
+    height: auto; /* Changed to auto */
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  
+  .right h2 {
+    font-size: 3.5vh; /* Increased for better visibility */
+    font-weight: 100;
+    font-family: monument;
+  }
+  
+  .right h5 {
+    font-size: 2.8vh; /* Increased for better visibility */
+    font-weight: 300;
+  }
+  
+  /* Media Queries for additional responsiveness */
+  @media (max-width: 768px) {
+    .fall_img h1 {
+      font-size: 5vh; /* Decreased for smaller screens */
+    }
+  
+    .elem {
+      padding: 2vh 5%; /* Increased padding */
+    }
+  
+    .left h3 {
+      font-size: 2vh; /* Adjusted size for smaller screens */
+    }
+    .right {
+      align-items: end;
+    }
+    .right h2 {
+      font-size: 3vh; /* Adjusted size */
+    }
+  
+    .right h5 {
+      font-size: 2.2vh; /* Adjusted size */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .fall_img h1 {
+      font-size: 4vh; /* Further decrease for mobile */
+    }
+  
+    .left img {
+      width: 10%; /* Increased width for better visibility */
+    }
+  
+    .left h3 {
+      font-size: 1.8vh; /* Adjusted size for smaller screens */
+    }
+    .right {
+      align-items: end;
+    }
+    .right h2 {
+      font-size: 2.5vh; /* Adjusted size */
+    }
+  
+    .right h5 {
+      font-size: 2vh; /* Adjusted size */
+    }
+  }

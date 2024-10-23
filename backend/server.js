@@ -1,154 +1,165 @@
-
-const path = require("path");
 const express = require("express");
-const User = require("../backend/models/model.js");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const jwt =require("jsonwebtoken")
-const product=require("../backend/models/products.js")
 
-const cookeiparser=require("cookie-parser")
+//authorization and some additional 
+const jwt = require("jsonwebtoken");
+const bodyparser = require("body-parser");
+const cookieParser = require("cookie-parser"  );
+const cors = require("cors")
 
-const database=require("../backend/databaseConnection.js/database.js")
+//From the database and models
+const database = require("./databaseConnection.js/database.js");
+const User = require("./models/user.js");
+const job = require("./models/jobs.js");
+
+//utils
+const IsAuthenticated = require("./utils/IsAuthenticated.js");
+const ApplyForJob = require("./models/Applied.js");
+
+
+
+
+
 
 const app = express();
-
-
-
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-  })
-)
-
-
-// Serve static files (optional if you have a frontend)
-app.use(express.static(path.join(__dirname, "../Bookshop/dist")));
-
-
-
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true, // Allow credentials (like cookies) if needed
+}));
 app.use(express.json())
-app.use(bodyParser.json());
+
+app.get("/", (req, res) => {
+  res.json({
+    message: "hii there",
+  });
+});
+
+app.use(bodyparser.json());
 
 app.post("/api/getstarted", async (req, res) => {
-  const {id, name, email, password,isShopkeeper,shopid } = req.body;
-  console.log(id, name, email, password,isShopkeeper,shopid );
   
-
-  try {
-    const newUser = new User({ id,name, email, password ,isShopkeeper,shopid});
-    await newUser.save();
-    res.status(201).json(newUser);
-
-    
-  } catch (error) {
-    console.log(error);
-  }
+ try {
+  const { name, email, password, skills } = req.body;
+  const user = new User({ name, email, password, skills });
+  await user.save();
+  res.json({
+    user: user,
+  });
+ } catch (error) {
+  res.json({
+    mesage:"somthing wnet wrong"
+  })
+ }
 });
 
 
-app.use(cookeiparser())
-
-app.post('/api/login', async (req, res) => {
-
-
-  
-  const {name, email, password } = req.body;
-
+app.post("/api/login", async (req, res) => {
+  const { email, password } = req.body;
 
   try {
-    // Find user by email
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(401).json({ message: 'Invalid email or password' });
+      return res.status(401).json({ message: "Invalid email" });
     }
 
-    // Check password directly (not recommended)
     if (user.password !== password) {
-      return res.status(401).json({ message: 'Invalid email or password' });
-    }
-    else{
-      const token =  jwt.sign({name:user.name},"@devbandil123",{expiresIn:"5sec"})
+      return res.status(401).json({ message: "Invalid email or password" });
+    } else {
+      const token = jwt.sign({ name: user.name }, "@devbandil123");
+      res.cookie("token", token);
      
+      console.log(req.user);
       
-      res.cookie("token",token)
-     
-    
-      res.send("successful login")
+      return res.send("successful login"); 
     }
-       
-    
   } catch (error) {
-    console.error('Error during login:', error); // Log the error for debugging
-    res.status(500).json({ message: 'Server error' });
+    console.error("Error during login:", error);
+    return res.status(500).json({ message: "Server error" }); 
   }
- 
-
-  
 });
-async function isauthenticated(req,res,next){
+
+
+app.get("/MarketPlace",async (req, res) => {
   try {
-    const cookies=req.cookies
-  const {token}=cookies
-
-
-
-  if(!token){
-   return res.send("please login")
+    const jobs = await job.find();
+    return res.send(jobs); 
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Error fetching jobs"); 
   }
-  next()
+});
+
+
+app.use(cookieParser())
+app.use(IsAuthenticated)
+
+app.get("/Profile",(req,res)=>{
+  const user=req.user
+  res.send(user)
+})
+
+app.post("/api/add/job",async(req,res)=>{
+  try {
+    const { title, description, experience, salary, lastDate } = req.body;
+    const newJob = new job({ title, description, experience, salary, lastDate });
+
+    if (newJob) {
+      await newJob.save();
+      return res.json({ message: "job added successfully" });
+    }
+  } catch (error) {
+    
+    return res.status(500).send("something needs to fix from your side  "); 
+  }
+})
+
+
+
+
+app.post("/api/logout",(req,res)=>{
+    
+   try {
+    res.cookie("token",null,{expires:new Date(Date.now())})
+
+    return res.json({message:"logout sucess"})
+   } catch (error) {
+    return res.json({
+      message:"something went wrong"
+    })
+   }
+})
+
+app.post("/api/apply/:jobId",async(req,res)=>{
+  try {
+        
+    const Job_ID=req.params.jobId;
+     const u_id=req.user._id
+  
+     const appliedJob = new ApplyForJob({jobID:Job_ID ,UID:u_id})
+     
+     
+     if(appliedJob){
+       await appliedJob.save()
+   return  res.send( u_id +"applyeid "+Job_ID)
+     }
+     res.json({
+      message:"gone wrong....."
+     })
+  
     
   } catch (error) {
-  
-    
-    
+    return res.json({
+      message:"something went wrong"
+    })
   }
-  
-
-}
-app.get("*",isauthenticated,(req, res) => {
-  res.sendFile(path.join(__dirname, "../Bookshop/dist", "index.html"));
-});
-
-
-const http = require('http');
-const socketIo = require('socket.io');
-const { log } = require("console");
-
-
-
-const tp = http.createServer(app);
-const io = socketIo(tp);
- 
-io.on('connection', (socket) => {
-  console.log('A user connected' + socket.id);
-socket.on("profiledata",async(namee,profileimage,bgimage)=>{
-  const Product=new product(namee,profileimage,bgimage)
-             await Product.save()
-  
 })
-
-});
-
-
-
-  
-
-
-
-database.then(()=>{
-  
-  console.log("databse connecte....");
-  const PORT = 5000;
- tp.listen(PORT, () => {
-  console.log("listenign..........");
-});
-
-  
-}).catch(()=>{
-  console.error("something happend with database/ check you connection");
-  
-})
-
-
-
+database
+  .then(() => {
+    console.log("databse connecte....");
+    const PORT = 5000;
+    app.listen(PORT, () => {
+      console.log("listenign..........");
+    });
+  })
+  .catch(() => {
+    console.error("something happend with database/ check you connection");
+  });
